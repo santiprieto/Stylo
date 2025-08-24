@@ -3,6 +3,7 @@ import SwiftUI
 @main
 struct StyloApp: App {
     @StateObject private var router = AppRouter()
+    @State private var showOnboarding = true
 
     var body: some Scene {
         WindowGroup {
@@ -26,7 +27,7 @@ struct StyloApp: App {
                     case .filters:
                         Text("Filters")
                     case .paywall:
-                        Text("Paywall")
+                        PaywallView(viewModel: PaywallViewModel(service: router.services.paywall))
                     }
                 }
                 .navigationDestination(for: AppRouter.Route.self) { route in
@@ -37,6 +38,12 @@ struct StyloApp: App {
                 }
             }
             .environmentObject(router)
+            .fullScreenCover(isPresented: $showOnboarding) {
+                OnboardingView(viewModel: OnboardingViewModel()) {
+                    showOnboarding = false
+                    router.present(.paywall)
+                }
+            }
         }
     }
 }
