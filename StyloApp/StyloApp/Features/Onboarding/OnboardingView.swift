@@ -87,10 +87,14 @@ struct OnboardingView: View {
     }
 
     private var budget: some View {
-        VStack(spacing: 24) {
+        let upperBound = Binding<Double>(
+            get: { viewModel.profile.budgetRange.upperBound },
+            set: { viewModel.profile.budgetRange = viewModel.profile.budgetRange.lowerBound...$0 }
+        )
+        return VStack(spacing: 24) {
             Text("Budget per Item")
                 .smTitle()
-            Slider(value: $viewModel.profile.budgetRange.upperBound, in: 50...500, step: 10)
+            Slider(value: upperBound, in: 50...500, step: 10)
             Text("Up to $\(Int(viewModel.profile.budgetRange.upperBound))")
                 .smBody()
             Spacer()
