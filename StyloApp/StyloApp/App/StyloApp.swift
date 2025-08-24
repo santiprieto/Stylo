@@ -9,17 +9,17 @@ struct StyloApp: App {
         WindowGroup {
             NavigationStack(path: $router.path) {
                 TabView {
-                    Text("Home")
+                    HomeView()
                         .tabItem { Label("Home", systemImage: "house") }
-                    Text("Browse")
+                    BrowseView()
                         .tabItem { Label("Browse", systemImage: "square.grid.2x2") }
-                    Text("Outfits")
+                    OutfitsView()
                         .tabItem { Label("Outfits", systemImage: "sparkles") }
-                    Text("Closet")
+                    ClosetView()
                         .tabItem { Label("Closet", systemImage: "tshirt") }
-                    Text("Alerts")
+                    AlertsView()
                         .tabItem { Label("Alerts", systemImage: "bell") }
-                    Text("Profile")
+                    ProfileView()
                         .tabItem { Label("Profile", systemImage: "person.crop.circle") }
                 }
                 .sheet(item: $router.sheet) { sheet in
